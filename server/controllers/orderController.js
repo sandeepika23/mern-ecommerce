@@ -5,15 +5,7 @@ const placeOrder = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const { items, total } = req.body;
-
-    const products = items.map((item) => ({
-      productId: item._id,
-      name: item.name,
-      image: item.image,
-      price: item.price,
-      quantity: item.quantity,
-    }));
+  const { products, total } = req.body;
 
     const order = await Order.create({
       userId,

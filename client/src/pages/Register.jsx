@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 import toast from "react-hot-toast";
+import API from "../api/api";
 
 function Register() {
   const navigate = useNavigate();
@@ -23,28 +24,19 @@ function Register() {
   };
 
   const registerHandler = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+  try {
+    const res = await API.post("/users/register", user);
 
-      const data = await res.json();
+    toast.success("Account Created Successfully");
 
-      alert(data.message);
+    navigate("/login");
 
-      if (res.ok) {
-        toast.success("Account Created Successfully");
-        navigate("/login");
-      }
-
-    } catch (error) {
-      toast.error("Registration Failed");
-    }
-  };
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || "Registration Failed"
+    );
+  }
+};
 
   return (
     <div className="auth-container">

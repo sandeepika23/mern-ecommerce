@@ -24,37 +24,24 @@ function Login() {
   };
 
   const loginHandler = async () => {
-    try {
-      const res = await fetch(
-  "https://mern-ecommerce-api-1w14.onrender.com/users/login",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
+  try {
+    const res = await API.post("/users/login", user);
+
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+
+    setIsLoggedIn(true);
+
+    toast.success("Welcome Back!");
+
+    navigate("/");
+
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || "Invalid Email or Password"
+    );
   }
-);
-      const data = await res.json();
-
-      if (!res.ok) {
-        return alert(data.message);
-      }
-
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      setIsLoggedIn(true);
-
-     
- toast.success("Welcome Back!");
-      navigate("/");
-    }catch(error){
-
-toast.error("Invalid Email or Password");
-
-}
-  };
+};
 
   return (
     <div className="auth-container">

@@ -25,14 +25,16 @@ function Login() {
 
   const loginHandler = async () => {
     try {
-      const res = await fetch("http://localhost:5000/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-
+      const res = await fetch(
+  "https://mern-ecommerce-api-1w14.onrender.com/users/login",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }
+);
       const data = await res.json();
 
       if (!res.ok) {
@@ -44,9 +46,7 @@ function Login() {
 
       setIsLoggedIn(true);
 
-      alert("Login Successful");
-      localStorage.setItem("token", res.data.token);
-localStorage.setItem("user", JSON.stringify(res.data.user));
+     
  toast.success("Welcome Back!");
       navigate("/");
     }catch(error){

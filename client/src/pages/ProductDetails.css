@@ -1,0 +1,121 @@
+.details-container{
+    width:90%;
+    margin:50px auto;
+    display:flex;
+    gap:60px;
+    align-items:center;
+}
+
+.details-image{
+    flex:1;
+    text-align:center;
+}
+
+.details-image img{
+    width:100%;
+    max-width:500px;
+    object-fit:contain;
+}
+
+.details-info{
+    flex:1;
+}
+
+.details-info h1{
+    font-size:38px;
+    margin-bottom:20px;
+}
+
+.details-info h2{
+    color:#2563eb;
+    margin:20px 0;
+}
+
+.details-info p{
+    line-height:1.8;
+    color:#555;
+}
+
+.details-info button{
+    margin-top:30px;
+    padding:15px 40px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:17px;
+}
+
+.details-info button:disabled{
+    background:gray;
+    cursor:not-allowed;
+}
+
+@media(max-width:900px){
+
+.details-container{
+flex-direction:column;
+text-align:center;
+}
+
+}
+.related-products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.related-card{
+    padding:15px;
+    text-align:center;
+    border-radius:15px;
+    background:white;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+    cursor:pointer;
+}
+
+.related-card:hover{
+    transform:translateY(-6px);
+}
+
+.related-card img{
+    width:100%;
+    height:150px;
+    object-fit:contain;
+}
+
+.related-card h4{
+    margin:15px 0;
+}
+
+.related-card p{
+    color:#2563eb;
+    font-weight:bold;
+}
+.quantity-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:25px 0;
+}
+
+.quantity-box button{
+    width:42px;
+    height:42px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.quantity-box span{
+    font-size:22px;
+    font-weight:bold;
+    width:40px;
+    text-align:center;
+}

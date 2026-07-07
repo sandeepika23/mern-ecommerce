@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../api/api";
 import "./Orders.css";
-
+import toast from "react-hot-toast";
 function Orders() {
   const [orders, setOrders] = useState([]);
 

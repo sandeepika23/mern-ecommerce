@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 function Checkout() {
   const { cart, setCart } = useContext(CartContext);
 
@@ -14,34 +14,47 @@ function Checkout() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+const placeOrder = async () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  const placeOrder = async () => {
-    try {
-      await API.post(
-        "/orders",
-        {
-          items: cart,
-          total,
+    await API.post(
+      "/orders",
+      {
+        userId: user._id,
+
+        products: cart.map((item) => ({
+          productId: item._id,
+          name: item.name,
+          image: item.image,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+
+        total,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      }
+    );
 
-      toast.success("Order placed successfully 🎉");
+    toast.success("Order placed successfully 🎉");
 
-      localStorage.removeItem("cart");
+    localStorage.removeItem("cart");
+    setCart([]);
 
-      setCart([]);
+    navigate("/orders");
 
-      navigate("/orders");
-    } catch (error) {
-      console.log(error);
-      alert("Order Failed");
-    }
-  };
+  }catch (error) {
+  console.log("Order Error:", error.response?.data);
+  console.log(error);
+
+  toast.error(error.response?.data?.message || "Order Failed");
+}
+};
+  
 
   return (
     <div className="checkout-page">

@@ -17,6 +17,7 @@ function Checkout() {
 const placeOrder = async () => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log("Token:", localStorage.getItem("token"));
 
     await API.post(
       "/orders",
